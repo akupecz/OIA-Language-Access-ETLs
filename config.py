@@ -2,6 +2,8 @@
 SFTP_SECRET = 'SFTP Server - CityGeo'
 GLOBO_DIRECTORY = 'OIA-LA-GLOBO-Reports'
 ULG_DIRECTORY= 'OIA-LA-ULG -Reports'
+POWERLING_DIRECTORY = 'IDK YET!!!!!'
+LSA_DIRECTORY= 'IDK YET EITHER!!!'
 
 # Databridge Vars 
 # DB_SECRET_LOGIN = 'databridge-v2/citygeo'
