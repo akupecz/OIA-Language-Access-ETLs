@@ -14,7 +14,7 @@ def create_sftp_conn(creds: dict, dir: str = None) -> SFTPClient:
     Note: 'look_for_keys' in the Connection constructor is set to False; this
     is needed to use the password instead of ssh key. 
 
-    Arguments:
+    Args:
         creds - dictionary containing the credentials to connect to sftp server
         dir   - path to change directories to. 
     
@@ -45,7 +45,7 @@ def get_sftp_fname(sftp_client: SFTPClient) -> tuple[str, str]:
     Returns the file name and extension of item located in sftp server in a specified directory.
     Assumes there is only one file located in the directory. 
 
-    Arguments:
+    Args:
         sftp_client - the sftp client set on a specific directory
 
     Returns:
@@ -62,7 +62,7 @@ def extract_sftp(sftp_client: SFTPClient, file: str, localname: str):
     the setup_sftp function, to local directory with name localname.
     Also uploads file to s3  
 
-    Arguments:
+    Args:
         sftp_client - the sftp client set on a specific directory 
         file        - the name of the file we are extracting 
         localname   - the name we wish to save the downloaded file as 
@@ -78,7 +78,7 @@ def setup_s3(creds: dict):
     '''
     Sets up boto3 S3 client using the specified credentials 
 
-    Arguments:
+    Args:
         creds - dictionary containing the access key and secret key to connect to AWS 
 
     Returns:
@@ -95,7 +95,7 @@ def add_to_s3(conn, fname: str, key: str):
     '''
     Uploads local file to S3 bucket. 
 
-    Arguments:
+    Args:
         conn - the boto3 s3 client 
         fname - the filename of the local file to upload
         key - the name the file will be called in S3 
@@ -108,16 +108,16 @@ def add_to_s3(conn, fname: str, key: str):
         raise e    
 
 
-def check_file_existence(sftp_client: SFTPClient) -> bool:
+def check_file_existence(sftp_client: SFTPClient) -> int:
     '''
     Checks if there is a file to download from server in the directory specified when connecting to sftp. 
     Returns true only for sizes > 0 
 
-    Arguments:
+    Args:
         sftp_client - the sftp client set on a specific directory 
    
     Returns:
-    True {x | x != 0}, False otherwise 
+        the number of files in the directory, but in essence for our purposes: True {x | x != 0}, False otherwise 
     '''
     return len(sftp_client.listdir_attr())
 
