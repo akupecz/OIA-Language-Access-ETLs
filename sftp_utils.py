@@ -108,10 +108,9 @@ def add_to_s3(conn, fname: str, key: str):
         raise e    
 
 
-def check_file_existence(sftp_client: SFTPClient) -> int:
+def num_files_in_dir(sftp_client: SFTPClient) -> int:
     '''
-    Checks if there is a file to download from server in the directory specified when connecting to sftp. 
-    Returns true only for sizes > 0 
+    Returns the number of files located in the directory. Used to see if the ETL should be processed or not. 
 
     Args:
         sftp_client - the sftp client set on a specific directory 
