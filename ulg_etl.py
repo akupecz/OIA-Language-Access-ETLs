@@ -35,6 +35,7 @@ def main():
 
         # Read in excel and create md5 hash
         df = pd.read_excel(local_name, sheet_name='OPI')
+        df.dropna(how='all', inplace=True)
         df = db_utils.generate_md5_hash(df)
         new_cols = ['call_id','call_date','call_time','client','client_id','prompt_1',
                     'prompt_2','prompt_3','client_phone','program_code','language','interpreter_id','ict',
@@ -60,6 +61,3 @@ def main():
 
 if __name__ == '__main__': 
     main()
-
-
-    # NEED TO JUST TEST RUN THIS!!!! BUT SHOULD BE GOOD! 

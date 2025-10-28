@@ -1,3 +1,5 @@
+# NEED TO CHANGE SCHEMA FOR THE SA TABLES BELOW!!!!
+
 import sqlalchemy as sa 
 #######################################
 ############ SFTP Vars ################
@@ -56,12 +58,22 @@ ulg_table = sa.Table(
 # #######################################
 # ############### GLOBO #################
 # #######################################
-# globo_table = sa.Table(
-#     'table name here',
-#     metadata, 
-#     sa.Column('col name', sa.Integer),
-#     schema='citygeo'
-# )
+globo_table = sa.Table(
+    'globo_lang_access_raw',
+    metadata, 
+    sa.Column('service_date', sa.Date),
+    sa.Column('client_name', sa.Text),
+    sa.Column('language', sa.Text),
+    sa.Column('service_detail', sa.Text),
+    sa.Column('description', sa.Text),
+    sa.Column('minutes_comments', sa.Float),
+    sa.Column('total_charged', sa.Float),
+    sa.Column('pin', sa.Text),
+    sa.Column('name', sa.Text),  
+    sa.Column('md5_hash', sa.Text, primary_key=True),   
+    schema='philly_stat_360'
+)
+
 # #######################################
 # ################# LSA #################
 # #######################################
