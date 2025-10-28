@@ -13,6 +13,10 @@ import hashlib
 
 
 def main():
+    '''
+    ETL to extract ULG vendor data from SFTP. Connects to the server, grabs the file, saves a copy locally and to S3,
+    generates an md5 hash and uploads unique rows to DataBridge.
+    '''
     cgs.set_config(keeper_dir='~')
     sftp_client = cgs.connect_with_secrets(sftp_utils.create_sftp_conn, SFTP_SECRET, dir=ULG_DIRECTORY)
     num_files = sftp_utils.num_files_in_dir(sftp_client)
@@ -43,8 +47,9 @@ def main():
         with databridge.begin() as conn:
             db_utils.insert_in_batch(conn, ulg_table, df.to_dict(orient='records'))
         
-        # Remove local copy
-        # os.remove(local_name)
+        # Remove file from local and sftp 
+        sftp_client.remove(fname)
+        os.remove(local_name)
     
 
     # Cleanup 

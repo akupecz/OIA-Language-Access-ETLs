@@ -21,7 +21,7 @@ DB_SECRET_HOST = 'databridge'
 ############ AWS Vars #################
 #######################################
 AWS_DEV = 'AWS Dev'
-AWS_BUCKET = 'PUT BUCKET HERE'
+AWS_BUCKET = 'citygeo-airflow-databridge2'
 
 metadata = sa.MetaData() 
 

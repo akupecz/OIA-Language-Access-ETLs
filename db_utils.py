@@ -1,6 +1,7 @@
 import citygeo_secrets as cgs
 from config import SFTP_SECRET, GLOBO_DIRECTORY, ULG_DIRECTORY, DB_SECRET_LOGIN, DB_SECRET_HOST
 import sqlalchemy as sa 
+from sqlalchemy import select, func
 from sqlalchemy.dialects.postgresql import insert
 import re
 import pandas as pd 
@@ -55,17 +56,24 @@ def insert_in_batch(conn: sa.Connection, table: sa.Table, data: list, increment:
         None, but loads unique rows into the target table. Identical rows, ie those with the same md5 hash,
         will be ignored.
     '''
+    # Get original row count
+    orig_len = select(func.count()).select_from(table)
+    row_count_start = conn.scalar(orig_len) 
+
     start = 0
     row_count = len(data)
     while start <= row_count:
         end = start + increment
         data_to_insert = data[start:end]
         print(f'Inserting rows {start} to {min(end-1, row_count)}')
-        stmt = insert(table).values(data_to_insert).on_conflict_do_nothing(index_elements=['md5_hash']) 
-        result = conn.execute(stmt)
+        stmt = insert(table).on_conflict_do_nothing(index_elements=['md5_hash']) 
+        result = conn.execute(stmt, data_to_insert)
         start = end
+    
+    new_len = select(func.count()).select_from(table)
+    row_count_end = conn.scalar(new_len) 
 
-    print(f'Appended {len(data):,} rows to {table.fullname}\n')
+    print(f'Appended {row_count_end - row_count_start} rows to {table.fullname}\n')
 
 
 def generate_md5_hash(df: pd.DataFrame) -> pd.DataFrame:

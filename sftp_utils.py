@@ -72,7 +72,7 @@ def extract_sftp(sftp_client: SFTPClient, file: str, localname: str):
     '''
     sftp_client.get(file, localname)
     s3_conn = cgs.connect_with_secrets(setup_s3, AWS_DEV)
-    add_to_s3(s3_conn, file, localname)
+    add_to_s3(s3_conn, localname, localname)
 
 def setup_s3(creds: dict):
     '''
