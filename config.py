@@ -8,7 +8,7 @@ SFTP_SECRET = 'SFTP Server - CityGeo'
 GLOBO_DIRECTORY = 'OIA-LA-GLOBO-Reports'
 ULG_DIRECTORY= 'OIA-LA-ULG -Reports'
 POWERLING_DIRECTORY = 'IDK YET!!!!!'
-LSA_DIRECTORY= 'IDK YET EITHER!!!'
+LSA_DIRECTORY= 'OIA-LA-GLOBO-Reports' ############# NEED TO CHANGE THIS!!!!!!
 
 #######################################
 ########## Databridge Vars ############
@@ -77,12 +77,32 @@ globo_table = sa.Table(
 # #######################################
 # ################# LSA #################
 # #######################################
-# lsa_table = sa.Table(
-#     'table name here',
-#     metadata, 
-#     sa.Column('col name', sa.Integer),
-#     schema='citygeo'
-# )
+lsa_table = sa.Table(
+    'lsa_lang_access_raw',
+    metadata, 
+    sa.Column('record_number', sa.Text),
+    sa.Column('account_code', sa.Integer), 
+    sa.Column('account_name', sa.Text),
+    sa.Column('language', sa.Text),
+    sa.Column('interpreter_id', sa.Integer),
+    sa.Column('start_date', sa.Date),
+    sa.Column('start_time', sa.Time),
+    sa.Column('length', sa.Float),
+    sa.Column('ani', sa.Text),
+    sa.Column('device_id', sa.Text),
+    sa.Column('intake_1', sa.Text),   
+    sa.Column('description', sa.Text),   
+    sa.Column('intake_2', sa.Text),   
+    sa.Column('intake_3', sa.Text),   
+    sa.Column('intake_4', sa.Text),   
+    sa.Column('intake_5', sa.Text),    
+    sa.Column('third_party_length', sa.Text),   
+    sa.Column('third_party_charge', sa.Float),   
+    sa.Column('third_party_country', sa.Text),   
+    sa.Column('total_charge', sa.Float),   
+    sa.Column('md5_hash', sa.Text, primary_key=True), 
+    schema='philly_stat_360'
+)
 # #######################################
 # ############## Powerling ##############
 # #######################################

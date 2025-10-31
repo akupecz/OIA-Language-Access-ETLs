@@ -50,8 +50,9 @@ def main():
         
         # Remove file from local and sftp 
         sftp_client.remove(fname)
+        print(f'Removed {fname} from SFTP server.')
         os.remove(local_name)
-    
+        print(f'Removed {local_name} from local storage.')
 
     # Cleanup 
     print('Exiting...')

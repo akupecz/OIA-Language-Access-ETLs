@@ -55,8 +55,10 @@ def main():
             db_utils.insert_in_batch(conn, globo_table, df.to_dict(orient='records'))
         
         # Remove file from local and sftp 
-        # sftp_client.remove(fname)
+        sftp_client.remove(fname)
+        print(f'Removed {fname} from SFTP server.')
         os.remove(local_name)
+        print(f'Removed {local_name} from local storage.')
     
     # Cleanup 
     print('Exiting...')
